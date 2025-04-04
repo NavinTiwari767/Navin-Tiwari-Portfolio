@@ -28,7 +28,7 @@ function About() {
           {
             title: "Education & Training",
             content: [
-              "B.Tech in [Your Branch], NIST University, 2026",
+              "B.Tech in Computer Science, NIST University, 2026",
               "AWS Cloud Practitioner (Ongoing)",
               "Full-Stack Web Development, [Platform], 2024",
             ],
