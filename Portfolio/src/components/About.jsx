@@ -30,7 +30,7 @@ function About() {
             content: [
               "B.Tech in Computer Science, NIST University, 2026",
               "AWS Cloud Practitioner (Ongoing)",
-              "Full-Stack Web Development, [Platform], 2024",
+              "Full-Stack Web Development, 2024",
             ],
           },
           {
