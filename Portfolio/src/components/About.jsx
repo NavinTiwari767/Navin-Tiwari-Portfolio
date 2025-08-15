@@ -1,7 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 function About() {
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursorPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const sections = [
+    {
+      title: "Education & Training",
+      content: [
+        "B.Tech in Computer Science, NIST University, 2026",
+        "AWS Cloud Practitioner (Ongoing)",
+        "Full-Stack Web Development, 2024",
+      ],
+    },
+    {
+      title: "Skills & Expertise",
+      content: [
+        "MERN Stack (MongoDB, Express, React, Node.js)",
+        "AWS Cloud (EC2, S3, Lambda, IAM)",
+        "Frontend: HTML5, CSS3, Tailwind CSS",
+        "Version Control: Git & GitHub",
+        "Problem-Solving & Team Collaboration",
+      ],
+    },
+    {
+      title: "Professional Experience",
+      content: [
+        "Freelance Web Developer, Remote — 2023-Present",
+        "- Built dynamic websites and web apps for clients",
+        "- Integrated cloud services for scalable solutions",
+      ],
+    },
+    {
+      title: "Achievements & Awards",
+      content: [
+        "Cloud Computing Club Member at NIST",
+        "Winner, [Coding Competition], 2024",
+        "Certified in Responsive Web Design",
+      ],
+    },
+    {
+      title: "Mission Statement",
+      content: [
+        "My mission is to leverage my web development and cloud computing skills to create impactful digital solutions. I believe in continuous learning, innovation, and delivering value that exceeds client expectations.",
+      ],
+    },
+  ];
+
   return (
     <div
       name="About"
@@ -22,63 +75,34 @@ function About() {
         </p>
       </motion.div>
 
-      {/* Grid Container for Cards */}
+      {/* Cards with Hover + Cursor Animation */}
       <div className="grid gap-10 mt-12">
-        {[
-          {
-            title: "Education & Training",
-            content: [
-              "B.Tech in Computer Science, NIST University, 2026",
-              "AWS Cloud Practitioner (Ongoing)",
-              "Full-Stack Web Development, 2024",
-            ],
-          },
-          {
-            title: "Skills & Expertise",
-            content: [
-              "MERN Stack (MongoDB, Express, React, Node.js)",
-              "AWS Cloud (EC2, S3, Lambda, IAM)",
-              "Frontend: HTML5, CSS3, Tailwind CSS",
-              "Version Control: Git & GitHub",
-              "Problem-Solving & Team Collaboration",
-            ],
-          },
-          {
-            title: "Professional Experience",
-            content: [
-              "Freelance Web Developer, Remote — 2023-Present",
-              "- Built dynamic websites and web apps for clients",
-              "- Integrated cloud services for scalable solutions",
-            ],
-          },
-          {
-            title: "Achievements & Awards",
-            content: [
-              "Cloud Computing Club Member at NIST",
-              "Winner, [Coding Competition], 2024",
-              "Certified in Responsive Web Design",
-            ],
-          },
-          {
-            title: "Mission Statement",
-            content: [
-              "My mission is to leverage my web development and cloud computing skills to create impactful digital solutions. I believe in continuous learning, innovation, and delivering value that exceeds client expectations.",
-            ],
-          },
-        ].map((section, index) => (
+        {sections.map((section, index) => (
           <motion.div
             key={index}
-            className="p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-lg border-l-4 border-green-600 dark:border-green-400 transition-all"
+            onMouseMove={handleMouseMove}
+            className="relative p-6 bg-white/90 dark:bg-gray-800/70 backdrop-blur-lg rounded-2xl shadow-lg border border-transparent transition-all hover:shadow-green-400/50 hover:scale-[1.02] overflow-hidden"
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <h2 className="text-2xl font-semibold text-green-600 dark:text-green-400 mb-4">
+            {/* Spotlight Effect */}
+            <div
+              className="pointer-events-none absolute -inset-px rounded-2xl"
+              style={{
+                background: `radial-gradient(400px circle at ${cursorPos.x}px ${cursorPos.y}px, rgba(34,197,94,0.15), transparent 80%)`,
+              }}
+            />
+
+            <h2 className="text-2xl font-semibold text-green-600 dark:text-green-400 mb-4 relative z-10">
               {section.title}
             </h2>
-            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-2">
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-2 relative z-10">
               {section.content.map((item, i) => (
-                <li key={i} className="hover:text-green-600 dark:hover:text-green-400 transition-all">
+                <li
+                  key={i}
+                  className="hover:text-green-600 dark:hover:text-green-400 transition-all"
+                >
                   {item}
                 </li>
               ))}
