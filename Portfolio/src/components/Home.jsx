@@ -8,7 +8,7 @@ const Home = () => {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [isDark, setIsDark] = useState(false);
 
-  // Detect dark mode from HTML root class
+  // ✅ Detect global dark mode
   useEffect(() => {
     const checkDark = () =>
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -31,7 +31,7 @@ const Home = () => {
   };
 
   return (
-    <div className="max-w-screen-2xl container w-full mx-auto px-6 md:px-20 flex flex-col md:flex-row my-8 items-center">
+    <div className="max-w-screen-2xl container w-full mx-auto px-6 md:px-20 flex flex-col md:flex-row my-8 items-center transition-colors duration-300">
       {/* Text Section */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}
@@ -65,6 +65,7 @@ const Home = () => {
           </p>
 
           <div className="flex flex-col md:flex-row justify-between items-center mt-12 gap-y-8 md:gap-x-12">
+            {/* Available on */}
             <div>
               <h1 className="text-xl font-semibold text-black dark:text-white">
                 Available on
@@ -108,6 +109,7 @@ const Home = () => {
               </ul>
             </div>
 
+            {/* Currently working on */}
             <div>
               <h1 className="text-xl font-semibold text-black dark:text-white">
                 Currently working on
@@ -156,7 +158,7 @@ const Home = () => {
       >
         <div
           onMouseMove={handleMouseMove}
-          className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px] rounded-full overflow-hidden border-4 border-gray-500 shadow-xl transition-transform duration-300 hover:scale-110"
+          className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px] rounded-full overflow-hidden border-4 border-gray-500 dark:border-gray-300 shadow-xl transition-transform duration-300 hover:scale-110"
         >
           {/* Cursor Glow */}
           <div
