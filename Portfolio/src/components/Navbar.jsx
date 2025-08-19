@@ -5,18 +5,21 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem('theme') === 'dark'
+  );
   const navigate = useNavigate();
 
-  // ✅ Toggle Menu
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
-  // ✅ Dark mode toggle
   const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
+    setDarkMode((prev) => {
+      const newMode = !prev;
+      localStorage.setItem('theme', newMode ? 'dark' : 'light');
+      return newMode;
+    });
   };
 
-  // ✅ Apply dark/light mode on body
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -38,30 +41,30 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-md relative dark:bg-gray-900 dark:text-white">
-      {/* Left side */}
-      <div className="navbar-start flex items-center gap-4 ml-5">
-        <div className="p-[2px] rounded-full bg-gradient-to-tr from-purple-500 via-blue-500 to-green-500">
-          <img 
-            src="/mypic.png" 
-            alt="Profile" 
-            className="w-12 h-12 rounded-full object-cover"
+    <div className="navbar bg-white dark:bg-gray-900 dark:text-white shadow-md sticky top-0 z-50 transition-colors duration-300">
+      {/* Left: Logo */}
+      <div className="navbar-start flex items-center gap-2 sm:gap-4 ml-2 sm:ml-4">
+        <div className="p-[2px] rounded-full bg-gradient-to-tr from-purple-500 via-blue-500 to-green-500 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+          <img
+            src="/mypic.png"
+            alt="Profile"
+            className="w-full h-full rounded-full object-cover"
           />
         </div>
-        <div>
-          <h2 className="text-xl lg:text-3xl font-bold flex items-center gap-1">
+        <div className="leading-tight">
+          <h2 className="text-base sm:text-xl lg:text-3xl font-bold flex items-center gap-1">
             <span className="whitespace-nowrap">Navin Tiwar</span>
-            <span className="text-green-500 animate-pulse ">i</span>
+            <span className="text-green-500 animate-pulse">i</span>
           </h2>
-          <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <p className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">
             Web developer
           </p>
         </div>
       </div>
 
-      {/* Desktop Menu */}
-      <div className="navbar-center hidden lg:flex ml-100">
-        <ul className="menu menu-horizontal gap-6">
+      {/* Center: Desktop Menu */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal gap-6 px-1">
           <li><button onClick={() => scrollToSection('home')}>Home</button></li>
           <li><button onClick={() => scrollToSection('about')}>About</button></li>
           <li><button onClick={() => scrollToSection('portfolio')}>Portfolio</button></li>
@@ -70,28 +73,28 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Right side */}
-      <div className="navbar-end flex items-center gap-3 mr-5">
+      {/* Right: Icons */}
+      <div className="navbar-end flex items-center gap-2 sm:gap-3 mr-2 sm:mr-4">
         {/* Theme Toggle */}
         <button onClick={toggleDarkMode} className="btn btn-ghost text-xl">
           {darkMode ? <BsSun /> : <BsMoon />}
         </button>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button onClick={toggleMenu} className="btn btn-ghost text-2xl lg:hidden">
           {menuOpen ? <CgClose /> : <CgMenuOreos />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="absolute top-16 right-5 bg-green-500 shadow-lg rounded-lg p-4 z-50 dark:bg-gray-800">
+        <div className="absolute top-full right-5 mt-2 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 z-50 lg:hidden">
           <ul className="flex flex-col gap-4">
             <li><button onClick={() => scrollToSection('home')}>Home</button></li>
             <li><button onClick={() => scrollToSection('about')}>About</button></li>
             <li><button onClick={() => scrollToSection('portfolio')}>Portfolio</button></li>
             <li><button onClick={() => scrollToSection('experience')}>Experience</button></li>
-            <li><button onClick={() => scrollToSection('contact')}>Contact</button></li> 
+            <li><button onClick={() => scrollToSection('contact')}>Contact</button></li>
           </ul>
         </div>
       )}

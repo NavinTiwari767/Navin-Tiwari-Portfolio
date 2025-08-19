@@ -8,7 +8,6 @@ const Home = () => {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [isDark, setIsDark] = useState(false);
 
-  // ✅ Detect global dark mode
   useEffect(() => {
     const checkDark = () =>
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -31,7 +30,7 @@ const Home = () => {
   };
 
   return (
-    <div className="max-w-screen-2xl container w-full mx-auto px-6 md:px-20 flex flex-col md:flex-row my-8 items-center transition-colors duration-300">
+    <div className="max-w-screen-2xl container w-full mx-auto px-6 md:px-20 flex flex-col md:flex-row my-8 items-center transition-colors duration-500">
       {/* Text Section */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}
@@ -44,9 +43,9 @@ const Home = () => {
             Welcome To My Feed
           </h1>
 
-          <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-gray-100">
+          <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 dark:text-white">
             Hello, I'm a{" "}
-            <span className="text-green-500 dark:text-green-300">
+            <span className="text-green-600 dark:text-green-400">
               <Typewriter
                 options={{
                   strings: ["Developer", "Programmer", "Coder", "Designer"],
@@ -59,7 +58,7 @@ const Home = () => {
             </span>
           </h2>
 
-          <p className="text-lg md:text-xl leading-relaxed text-gray-700 dark:text-gray-300 max-w-lg mx-auto md:mx-0">
+          <p className="text-lg md:text-xl leading-relaxed text-gray-800 dark:text-gray-400 max-w-lg mx-auto md:mx-0">
             Passionate about coding and solving complex problems. Let's build
             something amazing together! 🚀
           </p>
@@ -101,7 +100,7 @@ const Home = () => {
                       <img
                         src={platform.img}
                         alt={platform.name}
-                        className="w-10 h-10 dark:invert"
+                        className="w-10 h-10"
                       />
                     </a>
                   </li>
@@ -136,7 +135,7 @@ const Home = () => {
                     <img
                       src={tech.img}
                       alt={tech.name}
-                      className="w-10 h-10 dark:invert"
+                      className="w-10 h-10"
                     />
                   </li>
                 ))}
@@ -166,15 +165,15 @@ const Home = () => {
             style={{
               background: `radial-gradient(200px circle at ${cursorPos.x}px ${cursorPos.y}px, ${
                 isDark
-                  ? "rgba(59,130,246,0.25)" // Blue for dark mode
-                  : "rgba(34,197,94,0.25)" // Green for light mode
+                  ? "rgba(59,130,246,0.35)" // brighter blue for dark mode
+                  : "rgba(34,197,94,0.25)"  // green for light mode
               }, transparent 80%)`,
             }}
           />
           <img
             src={image}
             className="w-full h-full object-cover relative z-10"
-            alt="banner"
+            alt="Profile"
           />
         </div>
       </motion.div>
